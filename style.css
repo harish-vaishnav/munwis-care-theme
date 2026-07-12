@@ -63,6 +63,10 @@ p {
   opacity: 0.9;
 }
 
+.white {
+  color: #fff;
+}
+
 .script-accent {
   font-family: var(--font-accent);
   font-weight: 400;
