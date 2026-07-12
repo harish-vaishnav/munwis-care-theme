@@ -128,6 +128,23 @@ class Setup {
 			'settings' => 'munwis_footer_logo',
 		] ) );
 
+		// Section: Footer Banner
+		$wp_customize->add_section( 'munwis_footer_banner_section', [
+			'title' => __( 'Global Footer Banner', 'munwis-theme' ),
+			'panel' => 'munwis_brand_panel',
+		] );
+
+		// Setting: Footer Banner Image
+		$wp_customize->add_setting( 'munwis_footer_banner_image', [
+			'default'           => 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=300&q=80',
+			'sanitize_callback' => 'esc_url_raw',
+		] );
+		$wp_customize->add_control( new \WP_Customize_Image_Control( $wp_customize, 'munwis_footer_banner_image', [
+			'label'    => __( 'Footer Banner Image (Person)', 'munwis-theme' ),
+			'section'  => 'munwis_footer_banner_section',
+			'settings' => 'munwis_footer_banner_image',
+		] ) );
+
 		// Section: Contact Info
 		$wp_customize->add_section( 'munwis_contact_section', [
 			'title' => __( 'Contact Information', 'munwis-theme' ),

@@ -20,13 +20,15 @@ if ( ! empty( $footer_logo ) ) {
 		$logo_url = $logo_image[0];
 	}
 }
+
+$footer_banner_img = get_theme_mod( 'munwis_footer_banner_image', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=300&q=80' );
 ?>
 
 <!-- BOTTOM BANNER -->
 <section class="bottom-banner">
 	<div class="container banner-grid">
 		<div class="banner-image">
-			<img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=300&q=80"
+			<img src="<?php echo esc_url( $footer_banner_img ); ?>"
 				alt="Dedicated Munwi's Care coordinator">
 		</div>
 		<div class="banner-content">
