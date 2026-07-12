@@ -16,7 +16,7 @@ $contact_phone = get_theme_mod( 'munwis_contact_phone', '610-605-8035' );
 	<div class="services-hero" style="background-image: url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1600&q=80');">
 		<div class="container">
 			<h1 class="page-title text-navy">OUR SERVICES</h1>
-			<p class="hero-desc">The staff at Bizzy Health Services LLC are dedicated, certified health care professionals that are licensed, bonded and insured. Their goals are to fulfill the requirements of you and your family.</p>
+			<p class="hero-desc">Our dedicated, certified health care professionals are licensed, bonded and insured. Their goals are to fulfill the requirements of you and your family.</p>
 		</div>
 	</div>
 
@@ -45,49 +45,38 @@ $contact_phone = get_theme_mod( 'munwis_contact_phone', '610-605-8035' );
 	<!-- Services We Offer Grid -->
 	<div class="container services-offer-container bg-white shadow-box text-center">
 		<h2 class="text-navy">SERVICES WE OFFER</h2>
-		<p>Bizzy Health Services LLC provides customized healthcare solutions to our clients. In addition to these standard offerings, we also specialize in pediatric and adult private duty and supplemental staffing.</p>
+		<p>We provide customized healthcare solutions to our clients. In addition to these standard offerings, we also specialize in pediatric and adult private duty and supplemental staffing.</p>
 		
 		<div class="services-icon-grid">
-			<div class="service-icon-box">
-				<i class="fa-solid fa-user-nurse text-secondary"></i>
-				<h4>Staffing</h4>
-				<p>A fast, reliable staffing solution for businesses, whether it's temporary staffing or per diem.</p>
-			</div>
-			<div class="service-icon-box">
-				<i class="fa-solid fa-house-medical text-secondary"></i>
-				<h4>Home Health Care</h4>
-				<p>We offer a team of experienced and dedicated healthcare professionals to assist with daily activities and care in the comfort of your home.</p>
-			</div>
-			<div class="service-icon-box">
-				<i class="fa-solid fa-hand-holding-heart text-secondary"></i>
-				<h4>Companionship</h4>
-				<p>Provide a strong support system for individuals who need socialization, cognitive stimulation and help with errands or hobbies.</p>
-			</div>
-			<div class="service-icon-box">
-				<i class="fa-solid fa-bed-pulse text-secondary"></i>
-				<h4>Companion Care</h4>
-				<p>Provide a friendly and supportive environment for seniors or individuals who require extra help with daily activities.</p>
-			</div>
-			<div class="service-icon-box">
-				<i class="fa-solid fa-bath text-secondary"></i>
-				<h4>Personal Care</h4>
-				<p>Assistance with activities of daily living for individuals who need help due to age, illness, or disability.</p>
-			</div>
-			<div class="service-icon-box">
-				<i class="fa-solid fa-clock text-secondary"></i>
-				<h4>Live In / Sleep In Care</h4>
-				<p>Continuous support and assistance to individuals who require 24/7 care in their own home.</p>
-			</div>
-			<div class="service-icon-box">
-				<i class="fa-solid fa-stethoscope text-secondary"></i>
-				<h4>Specialized Care</h4>
-				<p>Tailored care for individuals with specific medical conditions or unique health needs.</p>
-			</div>
-			<div class="service-icon-box">
-				<i class="fa-solid fa-truck-medical text-secondary"></i>
-				<h4>Transportation</h4>
-				<p>Assistance with travel to medical appointments, errands and social outings.</p>
-			</div>
+			<?php
+			$services_query = new WP_Query( [
+				'post_type'      => 'service',
+				'posts_per_page' => -1,
+				'orderby'        => 'menu_order title',
+				'order'          => 'ASC',
+			] );
+
+			if ( $services_query->have_posts() ) :
+				while ( $services_query->have_posts() ) : $services_query->the_post();
+					?>
+					<div class="service-icon-box">
+						<?php if ( has_post_thumbnail() ) : ?>
+							<div style="margin-bottom: 15px;">
+								<?php the_post_thumbnail( 'thumbnail', [ 'style' => 'max-width: 60px; height: auto; border-radius: 8px;' ] ); ?>
+							</div>
+						<?php else : ?>
+							<i class="fa-solid fa-stethoscope text-secondary"></i>
+						<?php endif; ?>
+						<h4><?php the_title(); ?></h4>
+						<p><?php echo wp_trim_words( get_the_excerpt() ? get_the_excerpt() : get_the_content(), 20 ); ?></p>
+					</div>
+					<?php
+				endwhile;
+				wp_reset_postdata();
+			else :
+				echo '<p>No services found. Please add services from the dashboard.</p>';
+			endif;
+			?>
 		</div>
 	</div>
 
@@ -118,7 +107,7 @@ $contact_phone = get_theme_mod( 'munwis_contact_phone', '610-605-8035' );
 
 	<!-- Why Choose Us -->
 	<div class="container why-choose-container text-center">
-		<h2 class="text-navy">WHY CHOOSE BIZZY HEALTH SERVICES FOR SPECIALIZED HEALTHCARE STAFFING?</h2>
+		<h2 class="text-navy">WHY CHOOSE US FOR SPECIALIZED HEALTHCARE STAFFING?</h2>
 		<p>We guarantee a smooth and seamless registration process for all clients looking to acquire our services. Below are 3 initial reasons to choose us.</p>
 		
 		<div class="reasons-grid">
@@ -146,13 +135,13 @@ $contact_phone = get_theme_mod( 'munwis_contact_phone', '610-605-8035' );
 		</div>
 	</div>
 
-	<!-- Alzheimer's Banner -->
+	<!-- Specialized Care Banner -->
 	<div class="alzheimers-banner" style="background-image: url('https://images.unsplash.com/photo-1516841273335-e39b37888115?auto=format&fit=crop&w=1600&q=80');">
 		<div class="container">
 			<div class="alzheimers-box bg-white">
-				<h2 class="text-navy">ALZHEIMER'S & DEMENTIA CARE</h2>
-				<p>Caring for an aging parent or family member can be exhausting, challenging and time-consuming. We can help you with the care of your loved one.</p>
-				<p>A good caregiver can improve the quality of life for your loved one. Bizzy Health Services is here to help you find the right caregiver.</p>
+				<h2 class="text-navy">COMPREHENSIVE CARE SERVICES</h2>
+				<p>Finding the right care for yourself or a family member can be challenging. We offer a wide range of services designed to support your unique needs and ensure your comfort and safety.</p>
+				<p>Our dedicated team is here to provide the compassionate support you deserve.</p>
 				<div class="alz-buttons">
 					<a href="<?php echo esc_url( home_url( '/contact-us' ) ); ?>" class="btn btn-secondary">Contact Us</a>
 					<a href="#" class="btn btn-primary">Apply for Services</a>

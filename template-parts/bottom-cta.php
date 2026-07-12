@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 /**
  * Template part for displaying the bottom CTA section
  */
@@ -19,4 +19,4 @@ $contact_phone = get_theme_mod( 'munwis_contact_phone', '610-605-8035' );
 			</div>
 		</div>
 	</div>
-</section>
+</section> -->

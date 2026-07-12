@@ -34,39 +34,37 @@ $hero_lead = get_theme_mod( 'munwis_hero_lead', "Munwi's Care connects certified
         <p>Delivering qualified, fully vetted, and patient-centered staffing models across local clinical channels.</p>
       </div>
       <div class="services-grid">
-        <div class="service-card">
-          <div class="img-wrap"><img
-              src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=500&q=80"
-              alt="Hospital and clinical staffing"></div>
-          <div class="service-card-body">
-            <h3>Hospital &amp; Clinical Staffing</h3>
-            <p>Providing acute care facilities, emergency centers, and surgery clinics with experienced registered
-              nurses and specialists.</p>
-            <a href="careers.html">See open shifts <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="img-wrap"><img
-              src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=500&q=80"
-              alt="Long-term and assisted living staffing"></div>
-          <div class="service-card-body">
-            <h3>Long-Term &amp; Assisted Living</h3>
-            <p>Placing compassionate geriatric care specialists, certified nursing assistants, and support professionals
-              in retirement homes.</p>
-            <a href="careers.html">See open shifts <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="img-wrap"><img
-              src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=500&q=80"
-              alt="In-home and private duty care"></div>
-          <div class="service-card-body">
-            <h3>In-Home &amp; Private Care</h3>
-            <p>Deploying dedicated post-surgical aides, companionship specialists, and private duty caregivers for
-              direct home wellness support.</p>
-            <a href="careers.html">See open shifts <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-        </div>
+        <?php
+        $services_query = new WP_Query( [
+            'post_type'      => 'service',
+            'posts_per_page' => 3,
+            'orderby'        => 'menu_order title',
+            'order'          => 'ASC',
+        ] );
+
+        if ( $services_query->have_posts() ) :
+            while ( $services_query->have_posts() ) : $services_query->the_post();
+                $img_url = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+                if ( ! $img_url ) {
+                    // Fallback image if none uploaded
+                    $img_url = 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=500&q=80';
+                }
+                ?>
+                <div class="service-card">
+                  <div class="img-wrap"><img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>"></div>
+                  <div class="service-card-body">
+                    <h3><?php the_title(); ?></h3>
+                    <p><?php echo wp_trim_words( get_the_excerpt() ? get_the_excerpt() : get_the_content(), 15 ); ?></p>
+                    <a href="<?php the_permalink(); ?>">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+                  </div>
+                </div>
+                <?php
+            endwhile;
+            wp_reset_postdata();
+        else :
+            echo '<p>No services found. Please add services from the dashboard.</p>';
+        endif;
+        ?>
       </div>
     </div>
   </section>
@@ -91,7 +89,7 @@ $hero_lead = get_theme_mod( 'munwis_hero_lead', "Munwi's Care connects certified
       </div>
       <div class="depend-image">
         <div class="frame">
-          <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=700&q=80"
+          <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/reliability.jpg' ); ?>"
             alt="Compassionate patient care coordination">
         </div>
       </div>
@@ -132,34 +130,76 @@ $hero_lead = get_theme_mod( 'munwis_hero_lead', "Munwi's Care connects certified
         <div class="eyebrow">Feedback from partners</div>
         <h2>Trusted by facilities like yours</h2>
       </div>
-      <div class="testimonial-grid">
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p class="quote">"When we've had last-minute call-offs, Munwi's Care has always had someone qualified ready to
-            step in."</p>
-          <div class="testimonial-author">
-            <div class="avatar">D</div>
-            <div><b>Director of Nursing</b><span>Skilled Nursing Facility</span></div>
+      <div class="swiper testimonial-swiper" style="padding-bottom: 50px; overflow: hidden; margin: 0 -15px; padding: 15px;">
+        <div class="swiper-wrapper">
+        <?php
+        $testi_query = new WP_Query( [
+            'post_type'      => 'testimonial',
+            'posts_per_page' => -1,
+            'orderby'        => 'date',
+            'order'          => 'DESC',
+        ] );
+
+        if ( $testi_query->have_posts() ) :
+            while ( $testi_query->have_posts() ) : $testi_query->the_post();
+                $author_name = get_the_title();
+                $initial = ! empty( $author_name ) ? substr( $author_name, 0, 1 ) : 'T';
+                // Only use the manual excerpt so it doesn't auto-generate from the quote content
+                $role = has_excerpt() ? get_the_excerpt() : '';
+                ?>
+                <div class="swiper-slide">
+                  <div class="testimonial-card" style="height: 100%;">
+                  <div class="stars">★★★★★</div>
+                  <p class="quote"><?php echo wp_strip_all_tags( get_the_content() ); ?></p>
+                  <div class="testimonial-author">
+                    <div class="avatar"><?php echo esc_html( $initial ); ?></div>
+                    <div><b><?php echo esc_html( $author_name ); ?></b>
+                      <?php if ( $role ) : ?>
+                      <span><?php echo esc_html( $role ); ?></span>
+                      <?php endif; ?>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <?php
+            endwhile;
+            wp_reset_postdata();
+        else :
+            echo '<p>No testimonials found. Please add testimonials from the dashboard.</p>';
+        endif;
+        ?>
           </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p class="quote">"Every caregiver they've sent has been thoroughly credentialed and genuinely caring with our
-            residents."</p>
-          <div class="testimonial-author">
-            <div class="avatar">A</div>
-            <div><b>Administrator</b><span>Assisted Living Community</span></div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p class="quote">"Communication is fast and honest. We always know exactly who is coming and when."</p>
-          <div class="testimonial-author">
-            <div class="avatar">R</div>
-            <div><b>Practice Manager</b><span>Outpatient Clinic</span></div>
-          </div>
-        </div>
+        <div class="swiper-pagination" style="bottom: 0;"></div>
       </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          if (typeof Swiper !== 'undefined') {
+            new Swiper('.testimonial-swiper', {
+              slidesPerView: 1,
+              spaceBetween: 30,
+              loop: true,
+              autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              },
+              pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+              },
+              breakpoints: {
+                768: {
+                  slidesPerView: 2,
+                },
+                1024: {
+                  slidesPerView: 3,
+                }
+              }
+            });
+          }
+        });
+      </script>
     </div>
   </section>
 
@@ -182,7 +222,7 @@ $hero_lead = get_theme_mod( 'munwis_hero_lead', "Munwi's Care connects certified
       </div>
       <div class="work-image">
         <div class="frame">
-          <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=700&q=80"
+          <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/we-work.jpg' ); ?>"
             alt="Clinical environment where Munwi's Care staff works">
         </div>
       </div>
@@ -197,15 +237,7 @@ $hero_lead = get_theme_mod( 'munwis_hero_lead', "Munwi's Care connects certified
         <h2>Do you have questions?</h2>
         <p>Whether checking credential details, coverage options, or shift availability, our team is prepared to assist
           you.</p>
-        <form class="contact-form" id="intake-form">
-          <div class="field"><label for="name">Name*</label><input class="form-control" id="name" type="text" required>
-          </div>
-          <div class="field"><label for="email">Email*</label><input class="form-control" id="email" type="email"
-              required></div>
-          <div class="field full"><label for="message">Message / Comment*</label><textarea class="form-control"
-              id="message" required></textarea></div>
-          <div class="field full form-submit"><button type="submit" class="btn btn-primary">Send Message</button></div>
-        </form>
+        <?php echo do_shortcode('[contact-form-7 id="f68a113" title="Contact Form"]'); ?>
       </div>
     </div>
   </section>

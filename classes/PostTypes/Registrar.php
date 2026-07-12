@@ -20,7 +20,7 @@ class Registrar {
 	 */
 	public function register_cpts() {
 		$this->register_services();
-		$this->register_portfolio();
+
 		$this->register_testimonials();
 	}
 
@@ -63,34 +63,7 @@ class Registrar {
 		register_post_type( 'service', $args );
 	}
 
-	/**
-	 * Register Portfolio CPT
-	 */
-	private function register_portfolio() {
-		$labels = [
-			'name'               => _x( 'Portfolios', 'Post Type General Name', 'munwis-theme' ),
-			'singular_name'      => _x( 'Portfolio', 'Post Type Singular Name', 'munwis-theme' ),
-			'menu_name'          => __( 'Portfolio', 'munwis-theme' ),
-			'all_items'          => __( 'All Portfolios', 'munwis-theme' ),
-			'add_new_item'       => __( 'Add New Portfolio', 'munwis-theme' ),
-			'add_new'            => __( 'Add New', 'munwis-theme' ),
-			'edit_item'          => __( 'Edit Portfolio', 'munwis-theme' ),
-			'update_item'        => __( 'Update Portfolio', 'munwis-theme' ),
-			'view_item'          => __( 'View Portfolio', 'munwis-theme' ),
-		];
-		$args = [
-			'label'               => __( 'Portfolio', 'munwis-theme' ),
-			'labels'              => $labels,
-			'supports'            => [ 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ],
-			'public'              => true,
-			'show_ui'             => true,
-			'menu_position'       => 21,
-			'menu_icon'           => 'dashicons-portfolio',
-			'has_archive'         => true,
-			'show_in_rest'        => true,
-		];
-		register_post_type( 'portfolio', $args );
-	}
+
 
 	/**
 	 * Register Testimonials CPT
@@ -107,7 +80,7 @@ class Registrar {
 		$args = [
 			'label'               => __( 'Testimonial', 'munwis-theme' ),
 			'labels'              => $labels,
-			'supports'            => [ 'title', 'editor', 'thumbnail' ],
+			'supports'            => [ 'title', 'editor', 'thumbnail', 'excerpt' ],
 			'public'              => false, // Typically false for single view, true for shortcodes/widgets
 			'publicly_queryable'  => false,
 			'show_ui'             => true,

@@ -51,11 +51,28 @@ class Enqueue {
 			'6.4.0'
 		);
 
+		// Load Swiper CSS
+		wp_enqueue_style(
+			'swiper-css',
+			'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
+			[],
+			'11.0.0'
+		);
+
+		// Load Swiper JS
+		wp_enqueue_script(
+			'swiper-js',
+			'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js',
+			[],
+			'11.0.0',
+			true // Load in footer
+		);
+
 		// Core theme script
 		wp_enqueue_script(
 			'munwis-script',
 			get_template_directory_uri() . '/assets/js/main.js',
-			[], // No jQuery dependency
+			[ 'swiper-js' ], // Depend on Swiper
 			$theme_version,
 			true // Load in footer
 		);

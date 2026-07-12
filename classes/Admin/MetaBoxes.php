@@ -19,14 +19,24 @@ class MetaBoxes {
 	}
 
 	public function add_page_images_metabox() {
-		add_meta_box(
-			'munwis_page_images',
-			__( 'Page Images', 'munwis-theme' ),
-			[ $this, 'render_page_images_metabox' ],
-			'page',
-			'normal',
-			'high'
-		);
+		global $post;
+		
+		if ( ! $post ) {
+			return;
+		}
+
+		$template_file = get_post_meta( $post->ID, '_wp_page_template', true );
+
+		if ( 'template-home.php' === $template_file ) {
+			add_meta_box(
+				'munwis_page_images',
+				__( 'Page Images', 'munwis-theme' ),
+				[ $this, 'render_page_images_metabox' ],
+				'page',
+				'normal',
+				'high'
+			);
+		}
 	}
 
 	public function render_page_images_metabox( $post ) {

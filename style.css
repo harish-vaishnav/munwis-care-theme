@@ -969,6 +969,11 @@ header {
   opacity: 0.8;
 }
 
+/* Swiper Customizations */
+.testimonial-swiper .swiper-pagination-bullet-active {
+  background-color: var(--teal) !important;
+}
+
 /* WHERE WE WORK */
 .work-section {
   padding: 60px 0;
