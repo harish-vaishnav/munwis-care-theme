@@ -117,6 +117,17 @@ class Setup {
 			'settings' => 'munwis_secondary_logo',
 		] ) );
 
+		// Setting: Footer Logo
+		$wp_customize->add_setting( 'munwis_footer_logo', [
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+		] );
+		$wp_customize->add_control( new \WP_Customize_Image_Control( $wp_customize, 'munwis_footer_logo', [
+			'label'    => __( 'Footer Logo', 'munwis-theme' ),
+			'section'  => 'munwis_logos_section',
+			'settings' => 'munwis_footer_logo',
+		] ) );
+
 		// Section: Contact Info
 		$wp_customize->add_section( 'munwis_contact_section', [
 			'title' => __( 'Contact Information', 'munwis-theme' ),

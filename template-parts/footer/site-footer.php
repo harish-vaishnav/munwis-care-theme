@@ -10,7 +10,10 @@ $contact_phone = get_theme_mod( 'munwis_contact_phone', '(123) 456-7890' );
 $contact_email = get_theme_mod( 'munwis_contact_email', 'info@munwiscare.com' );
 
 $logo_url = get_template_directory_uri() . '/assets/images/munwis-logo.png';
-if ( has_custom_logo() ) {
+$footer_logo = get_theme_mod( 'munwis_footer_logo' );
+if ( ! empty( $footer_logo ) ) {
+	$logo_url = $footer_logo;
+} elseif ( has_custom_logo() ) {
 	$custom_logo_id = get_theme_mod( 'custom_logo' );
 	$logo_image     = wp_get_attachment_image_src( $custom_logo_id, 'full' );
 	if ( ! empty( $logo_image[0] ) ) {
@@ -18,6 +21,24 @@ if ( has_custom_logo() ) {
 	}
 }
 ?>
+
+<!-- BOTTOM BANNER -->
+<section class="bottom-banner">
+	<div class="container banner-grid">
+		<div class="banner-image">
+			<img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=300&q=80"
+				alt="Dedicated Munwi's Care coordinator">
+		</div>
+		<div class="banner-content">
+			<h2>We're here to help!</h2>
+			<p>Call our central coordinators directly at (123) 456-7890, or complete an intake message to receive a callback.</p>
+			<div class="banner-actions">
+				<a href="#contact" class="btn btn-teal">Contact Us <i class="fa-solid fa-angle-right"></i></a>
+				<a href="careers.html" class="btn btn-outline">Apply for Shifts</a>
+			</div>
+		</div>
+	</div>
+</section>
 
 <footer id="colophon">
 	<div class="container">

@@ -210,24 +210,7 @@ $hero_lead = get_theme_mod( 'munwis_hero_lead', "Munwi's Care connects certified
     </div>
   </section>
 
-  <!-- BOTTOM BANNER -->
-  <section class="bottom-banner">
-    <div class="container banner-grid">
-      <div class="banner-image">
-        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=300&q=80"
-          alt="Dedicated Munwi's Care coordinator">
-      </div>
-      <div class="banner-content">
-        <h2>We're here to help!</h2>
-        <p>Call our central coordinators directly at (123) 456-7890, or complete an intake message to receive a
-          callback.</p>
-        <div class="banner-actions">
-          <a href="#contact" class="btn btn-teal">Contact Us <i class="fa-solid fa-angle-right"></i></a>
-          <a href="careers.html" class="btn btn-outline">Apply for Shifts</a>
-        </div>
-      </div>
-    </div>
-  </section>
+
 
   <!-- UPGRADED FOOTER SECTION (BALANCED MULTI-COLUMN DESIGN) -->
 <?php get_footer(); ?>
