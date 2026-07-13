@@ -65,21 +65,14 @@ get_header();
 			<h2 class="text-navy">DO YOU HAVE QUESTIONS?</h2>
 			<p>We recognize that you have a lot of options when choosing a healthcare staffing agency. Contact us today with any general inquiries you may have about our staffing services.</p>
 			
-			<!-- PLACEHOLDER FOR CONTACT FORM 7 -->
-			<?php echo do_shortcode('[contact-form-7 id="99997" title="Questions form"]'); ?>
-			
-			<div class="cf7-fallback-preview text-left">
-				<form>
-					<div class="form-row">
-						<div class="form-group half"><input type="text" placeholder="Name*"></div>
-						<div class="form-group half"><input type="email" placeholder="Email*"></div>
-					</div>
-					<div class="form-row">
-						<div class="form-group"><textarea rows="3" placeholder="Message / Comment*"></textarea></div>
-					</div>
-					<button type="button" class="wpcf7-submit btn btn-secondary">Send</button>
-				</form>
-			</div>
+			<?php 
+			$about_form = get_theme_mod( 'munwis_about_form' );
+			if ( ! empty( $about_form ) ) {
+				echo do_shortcode( $about_form );
+			} else {
+			?>
+				<a href="<?php echo esc_url( home_url( '/contact-us' ) ); ?>" class="btn btn-secondary" style="margin-top: 20px;">Contact Us</a>
+			<?php } ?>
 		</div>
 	</div>
 </div>

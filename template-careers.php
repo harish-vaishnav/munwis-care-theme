@@ -29,7 +29,12 @@ get_header();
 			<!-- Right Column: Contact Form 7 -->
 			<div class="careers-form-col">
 				<div class="cf7-container bg-white shadow-box">
-					<?php echo do_shortcode('[contact-form-7 id="a1bda34" title="Career Form"]'); ?>
+					<?php
+					$careers_form = get_theme_mod( 'munwis_careers_form' );
+					if ( ! empty( $careers_form ) ) {
+						echo do_shortcode( $careers_form );
+					}
+					?>
 				</div>
 			</div>
 

@@ -7,9 +7,9 @@
 
 get_header(); 
 
-// Dynamic fields
 $contact_phone = get_theme_mod( 'munwis_contact_phone', '610-605-8035' );
 $contact_email = get_theme_mod( 'munwis_contact_email', 'info@example.com' );
+$contact_address = get_theme_mod( 'munwis_contact_address', 'Pennsylvania & Surrounding Counties' );
 ?>
 
 <div class="page-wrap contact-page-wrap">
@@ -38,7 +38,7 @@ $contact_email = get_theme_mod( 'munwis_contact_email', 'info@example.com' );
 						</li>
 						<li>
 							<i class="fa-solid fa-building text-teal"></i>
-							<span>Address</span>
+							<span><?php echo esc_html( $contact_address ); ?></span>
 						</li>
 						<li>
 							<i class="fa-solid fa-envelope text-teal"></i>
@@ -51,7 +51,12 @@ $contact_email = get_theme_mod( 'munwis_contact_email', 'info@example.com' );
 			<!-- Right Column: Contact Form 7 -->
 			<div class="contact-form-col">
 				<div class="cf7-container bg-white shadow-box">
-					<?php echo do_shortcode('[contact-form-7 id="f68a113" title="Contact Form"]'); ?>
+					<?php
+					$contact_form = get_theme_mod( 'munwis_contact_form' );
+					if ( ! empty( $contact_form ) ) {
+						echo do_shortcode( $contact_form );
+					}
+					?>
 				</div>
 			</div>
 

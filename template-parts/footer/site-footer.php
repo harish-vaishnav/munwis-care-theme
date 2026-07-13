@@ -8,6 +8,8 @@
 $footer_copyright = get_theme_mod( 'munwis_footer_copyright', '&copy; ' . date('Y') . ' Munwis Care LLC. All Rights Reserved. Healthcare Staffing Solutions. "Compassion. Quality. Trust."' );
 $contact_phone = get_theme_mod( 'munwis_contact_phone', '(123) 456-7890' );
 $contact_email = get_theme_mod( 'munwis_contact_email', 'info@munwiscare.com' );
+$contact_address = get_theme_mod( 'munwis_contact_address', 'Pennsylvania & Surrounding Counties' );
+$contact_hours = get_theme_mod( 'munwis_contact_hours', '24 Hours / 7 Days a Week' );
 
 $logo_url = get_template_directory_uri() . '/assets/images/munwis-logo.png';
 $footer_logo = get_theme_mod( 'munwis_footer_logo' );
@@ -33,7 +35,7 @@ $footer_banner_img = get_theme_mod( 'munwis_footer_banner_image', 'https://image
 		</div>
 		<div class="banner-content">
 			<h2>We're here to help!</h2>
-			<p>Call our central coordinators directly at (123) 456-7890, or complete an intake message to receive a callback.</p>
+			<p>Call our central coordinators directly at <?php echo esc_html( $contact_phone ); ?>, or complete an intake message to receive a callback.</p>
 			<div class="banner-actions">
 				<a href="#contact" class="btn btn-teal">Contact Us <i class="fa-solid fa-angle-right"></i></a>
 				<a href="careers.html" class="btn btn-outline">Apply for Shifts</a>
@@ -109,11 +111,11 @@ $footer_banner_img = get_theme_mod( 'munwis_footer_banner_image', 'https://image
 					</li>
 					<li>
 						<i class="fa-solid fa-clock"></i>
-						<span>24 Hours / 7 Days a Week</span>
+						<span><?php echo esc_html( $contact_hours ); ?></span>
 					</li>
 					<li>
 						<i class="fa-solid fa-location-dot"></i>
-						<span>Pennsylvania & Surrounding Counties</span>
+						<span><?php echo esc_html( $contact_address ); ?></span>
 					</li>
 				</ul>
 			</div>

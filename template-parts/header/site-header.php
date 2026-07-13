@@ -8,9 +8,13 @@
 $primary_color = get_theme_mod( 'munwis_primary_color', '#00818a' );
 $contact_phone = get_theme_mod( 'munwis_contact_phone', '(123) 456-7890' );
 $contact_email = get_theme_mod( 'munwis_contact_email', 'info@munwiscare.com' );
+$location_short = get_theme_mod( 'munwis_contact_location_short', 'Local & surrounding counties' );
 
 $logo_url = get_template_directory_uri() . '/assets/images/munwis-logo.png';
-if ( has_custom_logo() ) {
+$header_logo = get_theme_mod( 'munwis_header_logo' );
+if ( ! empty( $header_logo ) ) {
+	$logo_url = $header_logo;
+} elseif ( has_custom_logo() ) {
 	$custom_logo_id = get_theme_mod( 'custom_logo' );
 	$logo_image     = wp_get_attachment_image_src( $custom_logo_id, 'full' );
 	if ( ! empty( $logo_image[0] ) ) {
@@ -24,7 +28,7 @@ if ( has_custom_logo() ) {
 	<div class="container">
 		<div class="top-bar-left">
 			<i class="fa-solid fa-location-dot"></i>
-			<span class="short">Local &amp; surrounding counties</span>
+			<span class="short"><?php echo esc_html( $location_short ); ?></span>
 		</div>
 		<div class="top-bar-right">
 			<?php if ( $contact_email ) : ?>

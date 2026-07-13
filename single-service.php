@@ -51,7 +51,16 @@ get_header();
             
             <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid #eee;">
                 <h3 class="text-navy" style="margin-bottom: 15px;">Interested in this service?</h3>
-                <a href="<?php echo esc_url( home_url( '/contact-us' ) ); ?>" class="btn btn-secondary">Request Service <i class="fa-solid fa-arrow-right"></i></a>
+                <?php 
+                $service_form = get_theme_mod( 'munwis_service_form' );
+                if ( ! empty( $service_form ) ) {
+                    echo '<div class="cf7-container" style="text-align: left; max-width: 600px; margin: 0 auto;">';
+                    echo do_shortcode( $service_form );
+                    echo '</div>';
+                } else {
+                ?>
+                    <a href="<?php echo esc_url( home_url( '/contact-us' ) ); ?>" class="btn btn-secondary">Request Service <i class="fa-solid fa-arrow-right"></i></a>
+                <?php } ?>
             </div>
 		</div>
 	</div>

@@ -12,6 +12,7 @@ $hero_kicker = get_theme_mod( 'munwis_hero_kicker', 'On-Call 24 Hours a Day, 7 D
 $hero_title_main = get_theme_mod( 'munwis_hero_title_main', 'Compassion. Quality. ' );
 $hero_title_accent = get_theme_mod( 'munwis_hero_title_accent', 'Trust.' );
 $hero_lead = get_theme_mod( 'munwis_hero_lead', "Munwi's Care connects certified, reliable clinical professionals with hospitals, nursing environments, and private residential communities — whenever the need arises." );
+$contact_phone = get_theme_mod( 'munwis_contact_phone', '(123) 456-7890' );
 ?>
   <!-- HERO SECTION -->
   <?php get_template_part( 'template-parts/home/hero' ); ?>
@@ -72,8 +73,8 @@ $hero_lead = get_theme_mod( 'munwis_hero_lead', "Munwi's Care connects certified
   <!-- CALLOUT BAR -->
   <section class="callout-bar">
     <div class="container callout-bar-content">
-      <h2>Let's talk — reach our coordinators anytime at (123) 456-7890</h2>
-      <a href="#contact" class="btn">Contact Us <i class="fa-solid fa-angle-right"></i></a>
+      <h2>Let's Talk About Your Staffing Needs</h2>
+      <a href="#contact" class="btn">Call <?php echo esc_html( $contact_phone ); ?> <i class="fa-solid fa-angle-right"></i></a>
     </div>
   </section>
 
@@ -175,10 +176,13 @@ $hero_lead = get_theme_mod( 'munwis_hero_lead', "Munwi's Care connects certified
       <script>
         document.addEventListener('DOMContentLoaded', function() {
           if (typeof Swiper !== 'undefined') {
+            const swiperContainer = document.querySelector('.testimonial-swiper');
+            const slideCount = swiperContainer ? swiperContainer.querySelectorAll('.swiper-slide').length : 0;
+            
             new Swiper('.testimonial-swiper', {
               slidesPerView: 1,
               spaceBetween: 30,
-              loop: true,
+              loop: slideCount > 3,
               autoplay: {
                 delay: 4000,
                 disableOnInteraction: false,
@@ -237,7 +241,12 @@ $hero_lead = get_theme_mod( 'munwis_hero_lead', "Munwi's Care connects certified
         <h2>Do you have questions?</h2>
         <p>Whether checking credential details, coverage options, or shift availability, our team is prepared to assist
           you.</p>
-        <?php echo do_shortcode('[contact-form-7 id="f68a113" title="Contact Form"]'); ?>
+        <?php
+        $home_form = get_theme_mod( 'munwis_home_form' );
+        if ( ! empty( $home_form ) ) {
+            echo do_shortcode( $home_form );
+        }
+        ?>
       </div>
     </div>
   </section>

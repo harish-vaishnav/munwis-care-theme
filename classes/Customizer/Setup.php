@@ -27,6 +27,7 @@ class Setup {
 		$this->register_typography_settings( $wp_customize );
 		$this->register_layout_settings( $wp_customize );
 		$this->register_social_settings( $wp_customize );
+		$this->register_form_settings( $wp_customize );
 	}
 
 	/**
@@ -106,6 +107,17 @@ class Setup {
 			'panel' => 'munwis_brand_panel',
 		] );
 
+		// Setting: Header Logo
+		$wp_customize->add_setting( 'munwis_header_logo', [
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+		] );
+		$wp_customize->add_control( new \WP_Customize_Image_Control( $wp_customize, 'munwis_header_logo', [
+			'label'    => __( 'Header Logo', 'munwis-theme' ),
+			'section'  => 'munwis_logos_section',
+			'settings' => 'munwis_header_logo',
+		] ) );
+
 		// Setting: Secondary Logo
 		$wp_customize->add_setting( 'munwis_secondary_logo', [
 			'default'           => '',
@@ -171,6 +183,39 @@ class Setup {
 			'label'   => __( 'Email Address', 'munwis-theme' ),
 			'section' => 'munwis_contact_section',
 			'type'    => 'email',
+		] );
+
+		// Setting: Full Address
+		$wp_customize->add_setting( 'munwis_contact_address', [
+			'default'           => 'Pennsylvania & Surrounding Counties',
+			'sanitize_callback' => 'sanitize_text_field',
+		] );
+		$wp_customize->add_control( 'munwis_contact_address', [
+			'label'   => __( 'Full Address / Main Location', 'munwis-theme' ),
+			'section' => 'munwis_contact_section',
+			'type'    => 'text',
+		] );
+
+		// Setting: Short Location (Header)
+		$wp_customize->add_setting( 'munwis_contact_location_short', [
+			'default'           => 'Local & surrounding counties',
+			'sanitize_callback' => 'sanitize_text_field',
+		] );
+		$wp_customize->add_control( 'munwis_contact_location_short', [
+			'label'   => __( 'Short Location (Top Bar)', 'munwis-theme' ),
+			'section' => 'munwis_contact_section',
+			'type'    => 'text',
+		] );
+
+		// Setting: Hours
+		$wp_customize->add_setting( 'munwis_contact_hours', [
+			'default'           => '24 Hours / 7 Days a Week',
+			'sanitize_callback' => 'sanitize_text_field',
+		] );
+		$wp_customize->add_control( 'munwis_contact_hours', [
+			'label'   => __( 'Business Hours', 'munwis-theme' ),
+			'section' => 'munwis_contact_section',
+			'type'    => 'text',
 		] );
 
 		// Setting: Footer Copyright
@@ -294,5 +339,82 @@ class Setup {
 				'type'    => 'url',
 			] );
 		}
+	}
+
+	/**
+	 * Form Settings
+	 */
+	private function register_form_settings( $wp_customize ) {
+		$wp_customize->add_section( 'munwis_forms_section', [
+			'title'    => __( 'Form Shortcodes', 'munwis-theme' ),
+			'description' => __( 'Paste your Contact Form 7 shortcodes here.', 'munwis-theme' ),
+			'priority' => 45,
+		] );
+
+		// Home Page Form
+		$wp_customize->add_setting( 'munwis_home_form', [
+			'default'           => '',
+			'sanitize_callback' => 'wp_kses_post',
+		] );
+		$wp_customize->add_control( 'munwis_home_form', [
+			'label'   => __( 'Home Page Form Shortcode', 'munwis-theme' ),
+			'section' => 'munwis_forms_section',
+			'type'    => 'text',
+		] );
+
+		// Contact Page Form
+		$wp_customize->add_setting( 'munwis_contact_form', [
+			'default'           => '',
+			'sanitize_callback' => 'wp_kses_post',
+		] );
+		$wp_customize->add_control( 'munwis_contact_form', [
+			'label'   => __( 'Contact Page Form Shortcode', 'munwis-theme' ),
+			'section' => 'munwis_forms_section',
+			'type'    => 'text',
+		] );
+
+		// Careers Page Form
+		$wp_customize->add_setting( 'munwis_careers_form', [
+			'default'           => '',
+			'sanitize_callback' => 'wp_kses_post',
+		] );
+		$wp_customize->add_control( 'munwis_careers_form', [
+			'label'   => __( 'Careers Page Form Shortcode', 'munwis-theme' ),
+			'section' => 'munwis_forms_section',
+			'type'    => 'text',
+		] );
+
+		// Single Service Page Form
+		$wp_customize->add_setting( 'munwis_service_form', [
+			'default'           => '',
+			'sanitize_callback' => 'wp_kses_post',
+		] );
+		$wp_customize->add_control( 'munwis_service_form', [
+			'label'   => __( 'Single Service Page Form Shortcode', 'munwis-theme' ),
+			'section' => 'munwis_forms_section',
+			'type'    => 'text',
+		] );
+
+		// About Page Form
+		$wp_customize->add_setting( 'munwis_about_form', [
+			'default'           => '',
+			'sanitize_callback' => 'wp_kses_post',
+		] );
+		$wp_customize->add_control( 'munwis_about_form', [
+			'label'   => __( 'About Page Form Shortcode', 'munwis-theme' ),
+			'section' => 'munwis_forms_section',
+			'type'    => 'text',
+		] );
+
+		// Services Listing Page Form
+		$wp_customize->add_setting( 'munwis_services_form', [
+			'default'           => '',
+			'sanitize_callback' => 'wp_kses_post',
+		] );
+		$wp_customize->add_control( 'munwis_services_form', [
+			'label'   => __( 'Our Services (Main) Page Form Shortcode', 'munwis-theme' ),
+			'section' => 'munwis_forms_section',
+			'type'    => 'text',
+		] );
 	}
 }
